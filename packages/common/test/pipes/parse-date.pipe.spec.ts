@@ -22,6 +22,11 @@ describe('ParseDatePipe', () => {
         const transformedNumber = target.transform(asNumber)!;
         expect(transformedNumber).to.be.instanceOf(Date);
         expect(transformedNumber.getTime()).to.equal(asNumber);
+
+        const epoch = 0;
+        const transformedEpoch = target.transform(epoch)!;
+        expect(transformedEpoch).to.be.instanceOf(Date);
+        expect(transformedEpoch.getTime()).to.equal(epoch);
       });
 
       it('should not throw an error if the value is undefined/null and optional is true', () => {
@@ -62,7 +67,7 @@ describe('ParseDatePipe', () => {
         } catch (error) {
           expect(error).to.be.instanceOf(BadRequestException);
           expect(error.message).to.equal(
-            'Validation failed (no Date provided)',
+            'Validation failed (invalid date format)',
           );
         }
       });
